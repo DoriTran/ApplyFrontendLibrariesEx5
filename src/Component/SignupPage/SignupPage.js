@@ -28,9 +28,9 @@ const SingupPage = () => {
         }
     })
 
-    const submitHandler = () => {
+    const submitHandler = data => {
         console.log(watch())
-        mutateSignup.mutate(account)
+        mutateSignup.mutate(data)
     }
 
     return ( 

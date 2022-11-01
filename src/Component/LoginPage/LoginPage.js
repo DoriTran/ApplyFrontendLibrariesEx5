@@ -29,9 +29,9 @@ const LoginPage = () => {
         }
     })
 
-    const submitHandler = () => {
+    const submitHandler = data => {
         console.log(watch())
-        mutateLogin.mutate(account)
+        mutateLogin.mutate(data)
     }
 
     return ( 

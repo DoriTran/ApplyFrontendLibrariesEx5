@@ -2,6 +2,8 @@ import { API_URL } from "./api-url"
 import axios from 'axios'
 
 const postAccountInfo = async(formData) => {
+    console.log("This is form data")
+    console.log(formData)
     let res = null
     try {
         res = await axios({
