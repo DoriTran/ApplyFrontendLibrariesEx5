@@ -10,3 +10,16 @@
 .input-width {
     width: 250px;
 }
+
+.input-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert {
+    color: red;
+    width: 250px;
+    text-align: center;
+}

@@ -5,11 +5,12 @@ import TextField from "@mui/material/TextField"
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query"
 import { useState } from 'react'
+import { useForm } from "react-hook-form";
 
 import postCheckLogin from "../../ApiCalls/postCheckLogin"
 
 const LoginPage = () => {
-    const [account, setAccount] = useState({username: '', password: ''})
+    const { register: account, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate()
 
     // Submit handler
@@ -28,19 +29,25 @@ const LoginPage = () => {
         }
     })
 
-    const submitHandler = event => {
-        event.preventDefault()
+    const submitHandler = () => {
+        console.log(watch())
         mutateLogin.mutate(account)
     }
 
     return ( 
     <div className="login-container">
         <h2 className="big-title">Login to your account</h2>
-        <form className="login-container" onSubmit={submitHandler}>
-            <TextField id="outlined-basic" label="Username" variant="outlined" 
-                value={account.username} onChange={event => setAccount({username: event.target.value, password: account.password} )}/>
-            <TextField id="outlined-basic" label="Password" variant="outlined" type="password" 
-                value={account.password}  onChange={event => setAccount({username: account.username, password: event.target.value} )}/>
+        <form className="login-container" onSubmit={handleSubmit(submitHandler)}>
+            <div className="input-wrapper ">
+                { errors.username && <div className="alert">{errors.username?.message}</div> }
+                <TextField id="outlined-basic" label="Username" variant="outlined" className="input-width"
+                    {...account("username", { required: "Username is required" })}/>                      
+            </div>
+            <div className="input-wrapper ">
+                { errors.password && <div className="alert">{errors.password?.message}</div> }
+                <TextField id="outlined-basic" label="Password" variant="outlined" type="password" className="input-width"
+                    {...account("password", { required: "Password is required"})}/>
+            </div>
             <div className="login-button-group">
                 <Link to="/signup" style={{textDecoration: "none" }}>
                     <Button variant="outlined" className="account-btn">Sign up</Button>
